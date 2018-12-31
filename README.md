@@ -170,7 +170,19 @@ Recursos/Funções:
 
 ## <a name="parte7">7 - Introdução ao modulo</a>
 
+- Nativo apenas em LINUX
+- Mac OS X
+- Windows
 
+![](img/virtualizacao_3_1.jpg)
+
+AMBIENTE DO CURSO:
+
+- VirtualBox 5.0.10 <https://www.virtualbox.org/>
+- Ubuntu 14.04 Server
+- Docker 1.9
+
+<https://docs.docker.com/>
 
 [Voltar ao Índice](#indice)
 
