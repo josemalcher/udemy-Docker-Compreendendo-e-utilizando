@@ -167,7 +167,6 @@ Recursos/Funções:
 
 ---
 
-
 ## <a name="parte7">7 - Introdução ao modulo</a>
 
 - Nativo apenas em LINUX
@@ -188,8 +187,126 @@ AMBIENTE DO CURSO:
 
 ---
 
-
 ## <a name="parte8">8 - Instalação e configuração do Docker</a>
+
+- https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository
+
+
+- Material Curso: 
+
+```
+# Preparando o ambientE
+
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+sudo echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list
+
+sudo apt-get update
+sudo apt-get purge lxc-docker
+sudo apt-cache policy docker-engine
+
+sudo apt-get install linux-image-extra-$(uname -r)
+
+# Instalando
+
+sudo apt-get install docker-engine
+sudo service docker start
+
+# Testando
+
+sudo docker info
+sudo docker run hello-world
+
+```
+
+Realizado:
+
+[DESCOMPLICANDO O DOCKER V1 - 05 - Instalando o Docker](https://www.youtube.com/watch?v=FTxBa7i8VMM)
+
+```
+$ sudo docker info
+[sudo] password for josemalcher:
+Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 0
+Server Version: 18.09.0
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: c4446665cb9c30056f4998ed953e6d4ff22c7c39
+runc version: 4fc53a81fb7c994640722ac585fa9ca548971871
+init version: fec3683
+Security Options:
+ apparmor
+ seccomp
+  Profile: default
+Kernel Version: 4.15.0-43-generic
+Operating System: Ubuntu 18.04.1 LTS
+OSType: linux
+Architecture: x86_64
+CPUs: 1
+Total Memory: 1.923GiB
+Name: serverubuntu
+ID: #########################################(apagado)
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+Product License: Community Engine
+
+WARNING: No swap limit support
+```
+
+**docker run hello-world**
+
+```
+root@serverubuntu:/home/josemalcher# docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+d1725b59e92d: Pull complete
+Digest: sha256:b3a26e22bf55e4a5232b391281fc1673f18462b75cdc76aa103e6d3a2bce5e77
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+```
+
 
 
 
