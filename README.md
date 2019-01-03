@@ -307,9 +307,6 @@ For more examples and ideas, visit:
 
 ```
 
-
-
-
 [Voltar ao Índice](#indice)
 
 ---
@@ -317,7 +314,131 @@ For more examples and ideas, visit:
 
 ## <a name="parte9">9 - Introdução pratica ao Docker - Parte 1</a>
 
+Comandos:
 
+- docker ps
+
+```
+# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+```
+
+- docker ps -a
+
+```
+# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                  PORTS               NAMES
+e2fa1d02a838        hello-world         "/hello"            2 days ago          Exited (0) 2 days ago                       gallant_banzai
+```
+
+- doker help ps
+
+```
+#docker help ps
+
+Usage:  docker ps [OPTIONS]
+
+List containers
+
+Options:
+  -a, --all             Show all containers (default shows just running)
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print containers using a Go template
+  -n, --last int        Show n last created containers (includes all states) (default -1)
+  -l, --latest          Show the latest created container (includes all states)
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only display numeric IDs
+  -s, --size            Display total file sizes
+
+```
+
+- docker run --name exemplo1 -d -t ubuntu
+
+```
+# docker run --name exemplo1 -d -t ubuntu
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+84ed7d2f608f: Pull complete
+be2bf1c4a48d: Pull complete
+a5bdc6303093: Pull complete
+e9055237d68d: Pull complete
+Digest: sha256:868fd30a0e47b8d8ac485df174795b5e2fe8a6c8f056cc707b232d65b8a1ab68
+Status: Downloaded newer image for ubuntu:latest
+6ce308ac8ac03f9e145b88de8d21391e8e31b559bc612a16f12c70db0993a547
+
+# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+6ce308ac8ac0        ubuntu              "/bin/bash"         47 seconds ago      Up 43 seconds                           exemplo1
+
+```
+
+- docker run --name exemplo2 -i -t ubuntu /bin/bash
+
+```
+# docker run --name exemplo2 -i -t ubuntu /bin/bash
+root@ac5245980fee:/#
+
+# exit
+exit
+root@serverubuntu:/home/josemalcher#
+```
+
+- Crtl + p q
+
+```
+# docker run --name exemplo3 -i -t ubuntu /bin/bash
+root@f040d3353ccc:/#  # root@serverubuntu:/home/josemalcher# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
+f040d3353ccc        ubuntu              "/bin/bash"         About a minute ago   Up About a minute                       exemplo3
+6ce308ac8ac0        ubuntu              "/bin/bash"         11 minutes ago       Up 11 minutes                           exemplo1
+```
+
+- docker exec -i -t exemplo3 bash
+
+```
+# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+f040d3353ccc        ubuntu              "/bin/bash"         5 minutes ago       Up 4 minutes                            exemplo3
+6ce308ac8ac0        ubuntu              "/bin/bash"         15 minutes ago      Up 14 minutes                           exemplo1
+
+root@serverubuntu:/home/josemalcher# docker exec -i -t exemplo3 bash
+root@f040d3353ccc:/#
+
+# docker exec -i -t exemplo3 ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1  18508  3152 pts/0    Ss+  00:19   0:00 /bin/bash
+root        20  0.2  0.1  18508  3412 pts/1    Ss+  00:29   0:00 bash
+root        30  0.0  0.1  34400  2868 pts/2    Rs+  00:29   0:00 ps aux
+root@serverubuntu:/home/josemalcher# docker exec -i -t exemplo3 bash
+
+root@f040d3353ccc:/#
+root@serverubuntu:/home/josemalcher# docker exec -i -t exemplo3 ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1  18508  3152 pts/0    Ss+  00:19   0:00 /bin/bash
+root        20  0.1  0.1  18508  3412 pts/1    Ss+  00:29   0:00 bash
+root        35  0.7  0.1  18508  3116 pts/2    Ss+  00:29   0:00 bash
+root        44  0.0  0.1  34400  2960 pts/3    Rs+  00:30   0:00 ps aux
+```
+
+- docker exec exemplo3 kill -TERM 35
+
+```
+# docker exec -i -t exemplo3 ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1  18508  3152 pts/0    Ss+  00:19   0:00 /bin/bash
+root        20  0.1  0.1  18508  3412 pts/1    Ss+  00:29   0:00 bash
+root        35  0.7  0.1  18508  3116 pts/2    Ss+  00:29   0:00 bash
+root        44  0.0  0.1  34400  2960 pts/3    Rs+  00:30   0:00 ps aux
+
+root@serverubuntu:/home/josemalcher# docker exec exemplo3 kill -TERM 35
+
+root@serverubuntu:/home/josemalcher# docker exec -i -t exemplo3 ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1  18508  3152 pts/0    Ss+  00:19   0:00 /bin/bash
+root        20  0.0  0.1  18508  3412 pts/1    Ss+  00:29   0:00 bash
+root        54  7.0  0.1  34400  2868 pts/2    Rs+  00:31   0:00 ps aux
+root@serverubuntu:/home/josemalcher#
+```
 
 [Voltar ao Índice](#indice)
 
