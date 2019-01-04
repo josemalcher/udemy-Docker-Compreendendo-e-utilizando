@@ -579,7 +579,42 @@ hello-world         latest              4ab4c602aa5e        3 months ago        
 
 ## <a name="parte11">11 - Introdução pratica ao Docker - Parte 3</a>
 
+- \Exemplo5\Dockerfile
+- docker build -t nginx-exemplo:v2 .
 
+```
+# docker build -t nginx-exemplo:v2 .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM nginx
+ ---> 7042885a156a
+Step 2/3 : RUN sed -i 's/Welcome to nginx!/Bem vindo  ao exemplo 5 <br> Via Dockerfile/g' /usr/share/nginx/html/index.html
+ ---> Using cache
+ ---> b398a10ef777
+Step 3/3 : RUN ls '/tmp'
+ ---> Running in ffb671cb4939
+Removing intermediate container ffb671cb4939
+ ---> 653db82a75fd
+Successfully built 653db82a75fd
+Successfully tagged nginx-exemplo:v2
+
+# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx-exemplo       v2                  653db82a75fd        6 seconds ago       109MB
+nginx-exemplo1      v1                  b398a10ef777        5 minutes ago       109MB
+nginx               latest              7042885a156a        6 days ago          109MB
+ubuntu              latest              1d9c17228a9e        6 days ago          86.7MB
+hello-world         latest              4ab4c602aa5e        3 months ago        1.84kB
+```
+
+-  docker run --name exemplo51 -d -t -p 80:80 nginx-exemplo:v2
+
+```
+# docker run --name exemplo51 -d -t -p 80:80 nginx-exemplo:v2
+920d626b272026462879e3bd5de93bd7b89c7556e625a29a55e9672204f6a9bd
+root@serverubuntu:/home/josemalcher/exemplo5# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+920d626b2720        nginx-exemplo:v2    "nginx -g 'daemon of…"   5 seconds ago       Up 4 seconds        0.0.0.0:80->80/tcp   exemplo51
+```
 
 [Voltar ao Índice](#indice)
 
