@@ -447,6 +447,129 @@ root@serverubuntu:/home/josemalcher#
 
 ## <a name="parte10">10 - Introdução pratica ao Docker - Parte 2</a>
 
+- docker stop exemplo5
+
+```
+ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+ffe6225387b2        ubuntu              "/bin/bash"         11 seconds ago      Up 9 seconds                            exemplo5
+f3014608eb41        ubuntu              "/bin/bash"         34 seconds ago      Up 31 seconds                           exemplo4
+root@serverubuntu:/home/josemalcher# docker stop exemplo5
+exemplo5
+root@serverubuntu:/home/josemalcher# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
+f3014608eb41        ubuntu              "/bin/bash"         About a minute ago   Up About a minute                       exemplo4
+```
+
+- docker start exemplo5
+
+```
+ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+ffe6225387b2        ubuntu              "/bin/bash"         2 minutes ago       Exited (0) 2 minutes ago                       exemplo5
+f3014608eb41        ubuntu              "/bin/bash"         3 minutes ago       Up 2 minutes                                   exemplo4
+f040d3353ccc        ubuntu              "/bin/bash"         36 hours ago        Exited (0) 9 hours ago                         exemplo3
+ac5245980fee        ubuntu              "/bin/bash"         36 hours ago        Exited (0) 36 hours ago                        exemplo2
+6ce308ac8ac0        ubuntu              "/bin/bash"         36 hours ago        Exited (0) 9 hours ago                         exemplo1
+e2fa1d02a838        hello-world         "/hello"            3 days ago          Exited (0) 3 days ago                          gallant_banzai
+root@serverubuntu:/home/josemalcher# docker start exemplo5
+exemplo5
+root@serverubuntu:/home/josemalcher# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+ffe6225387b2        ubuntu              "/bin/bash"         3 minutes ago       Up 3 seconds                            exemplo5
+f3014608eb41        ubuntu              "/bin/bash"         3 minutes ago       Up 3 minutes                            exemplo4
+```
+
+- docker images
+
+```
+# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              1d9c17228a9e        6 days ago          86.7MB
+hello-world         latest              4ab4c602aa5e        3 months ago        1.84kB
+```
+
+- docker pull ubuntu:14.04
+
+```
+# docker pull ubuntu:14.04
+14.04: Pulling from library/ubuntu
+9b316e271c60: Pull complete
+dea703e2e1f1: Pull complete
+dd50fddc64ae: Pull complete
+9d32d2e6dcde: Pull complete
+Digest: sha256:2ceb8f8fef6dfa7433c992efdedc90c35b572747f34d9bac726e18a9e086e95e
+Status: Downloaded newer image for ubuntu:14.04
+
+root@serverubuntu:/home/josemalcher# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              14.04               7e4b16ae8b23        6 days ago          188MB
+ubuntu              latest              1d9c17228a9e        6 days ago          86.7MB
+hello-world         latest              4ab4c602aa5e        3 months ago        1.84kB
+```
+
+- docker run --name exemplo6 -d -t -p 80:80 nginx
+
+```
+ # docker run --name exemplo6 -d -t -p 80:80 nginx
+c5c75f48167d645330f1e704d4d4880e58c87c0837def6baae4e47c924be92e0
+
+# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+c5c75f48167d        nginx               "nginx -g 'daemon of…"   2 minutes ago       Up About a minute   0.0.0.0:80->80/tcp   exemplo6
+ffe6225387b2        ubuntu              "/bin/bash"              7 hours ago         Up 7 hours                               exemplo5
+f3014608eb41        ubuntu              "/bin/bash"              7 hours ago         Up 7 hours                               exemplo4
+```
+
+- docker rm exemplo1
+
+```
+r# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+root@serverubuntu:/home/josemalcher# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                          PORTS               NAMES
+c5c75f48167d        nginx               "nginx -g 'daemon of…"   12 minutes ago      Exited (0) About a minute ago                       exemplo6
+ffe6225387b2        ubuntu              "/bin/bash"              7 hours ago         Exited (0) About a minute ago                       exemplo5
+f3014608eb41        ubuntu              "/bin/bash"              7 hours ago         Exited (0) About a minute ago                       exemplo4
+f040d3353ccc        ubuntu              "/bin/bash"              43 hours ago        Exited (0) 15 hours ago                             exemplo3
+ac5245980fee        ubuntu              "/bin/bash"              43 hours ago        Exited (0) 43 hours ago                             exemplo2
+6ce308ac8ac0        ubuntu              "/bin/bash"              43 hours ago        Exited (0) 15 hours ago                             exemplo1
+e2fa1d02a838        hello-world         "/hello"                 3 days ago          Exited (0) 3 days ago                               gallant_banzai
+root@serverubuntu:/home/josemalcher# docker rm exemplo1
+exemplo1
+root@serverubuntu:/home/josemalcher# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                          PORTS               NAMES
+c5c75f48167d        nginx               "nginx -g 'daemon of…"   13 minutes ago      Exited (0) About a minute ago                       exemplo6
+ffe6225387b2        ubuntu              "/bin/bash"              7 hours ago         Exited (0) About a minute ago                       exemplo5
+f3014608eb41        ubuntu              "/bin/bash"              7 hours ago         Exited (0) About a minute ago                       exemplo4
+f040d3353ccc        ubuntu              "/bin/bash"              43 hours ago        Exited (0) 15 hours ago                             exemplo3
+ac5245980fee        ubuntu              "/bin/bash"              43 hours ago        Exited (0) 43 hours ago                             exemplo2
+e2fa1d02a838        hello-world         "/hello"                 3 days ago          Exited (0) 3 days ago                               gallant_banzai
+```
+
+- docker rmi ubuntu:14.04
+
+```
+# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              7042885a156a        6 days ago          109MB
+ubuntu              14.04               7e4b16ae8b23        6 days ago          188MB
+ubuntu              latest              1d9c17228a9e        6 days ago          86.7MB
+hello-world         latest              4ab4c602aa5e        3 months ago        1.84kB
+root@serverubuntu:/home/josemalcher# docker rmi ubuntu:14.04
+Untagged: ubuntu:14.04
+Untagged: ubuntu@sha256:2ceb8f8fef6dfa7433c992efdedc90c35b572747f34d9bac726e18a9e086e95e
+Deleted: sha256:7e4b16ae8b23e239ab03a413febb51e204e294cb2bf0e45cc4aa7bed7d7f704e
+Deleted: sha256:31fee1a1223e18212fbfabdbc6c1d858539736e72ebc6e5656b5bbe1a6a3e6f0
+Deleted: sha256:46eadf76580d8e4b62992ec2a5ad6fbe665a2315e249dae0f93b79137694b6bf
+Deleted: sha256:e41a350db85f18619768eadfb3b8e4e72e07318486614a5acf708fdd45781c4c
+Deleted: sha256:a1dfb45ac02d4300506f63948d1a9d1bc9e354d0643412e6b88cc9dec820216f
+root@serverubuntu:/home/josemalcher# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              7042885a156a        6 days ago          109MB
+ubuntu              latest              1d9c17228a9e        6 days ago          86.7MB
+hello-world         latest              4ab4c602aa5e        3 months ago        1.84kB
+```
 
 
 [Voltar ao Índice](#indice)
