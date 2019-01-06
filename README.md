@@ -693,6 +693,99 @@ Up 45 seconds, PORTAS: 0.0.0.0:80->80/tcp
 
 ## <a name="parte15">15 - Trabalhando com variáveis de ambiente</a>
 
+- https://hub.docker.com/r/sameersbn/mysql
+
+- v=A0502E01 ; docker run -it --rm --name $v --hostname $v -e 'X=varival1' --env='Y=variavel2' ubuntu /bin/bash
+
+```
+# v=A0502E01 ; docker run -it --rm --name $v --hostname $v -e 'X=varival1' --env='Y=variavel2' ubuntu /bin/bash
+
+root@A0502E01:/# echo "Imprimindo valor de X: $X, Y:$Y e Z:$Z"
+Imprimindo valor de X: varival1, Y:variavel2 e Z:
+
+```
+
+- v=A0502E02 ; docker run -it --rm --name $v --hostname $v -e 'DB_NAME=db' -e 'DB_USER=user1' -e 'DB_PASS=123' sameersbn/mysql
+
+```
+# v=A0502E02 ; docker run -it --rm --name $v --hostname $v -e 'DB_NAME=db' -e 'DB_USER=user1' -e 'DB_PASS=123' sameersbn/mysql
+Installing database...
+Starting MySQL server...
+Waiting for database server to accept connections.
+Creating debian-sys-maint user...
+Creating database "db"...
+Granting access to database "db" for user "user1"...
+2019-01-06T21:41:37.379842Z mysqld_safe Logging to syslog.
+2019-01-06T21:41:37.428114Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+
+# docker exec -it A0502E02 mysql -u user1 --password=123
+
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.22-0ubuntu18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| db                 |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql>
+```
+
+**Variáveis dentro de arquivos**
+
+```
+# v=A0502E03 ; docker run -it --rm --name $v --hostname $v --env-file=/home/josemalcher/exemplo9/variaveisDB sameersbn/mysql
+Installing database...
+Starting MySQL server...
+Waiting for database server to accept connections.
+Creating debian-sys-maint user...
+Creating database "db_arquivovar"...
+Granting access to database "db_arquivovar" for user "user2"...
+2019-01-06T21:51:46.178424Z mysqld_safe Logging to syslog.
+2019-01-06T21:51:46.220244Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+
+# docker exec -it A0502E03 mysql -u user2 --password=12356
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1045 (28000): Access denied for user 'user2'@'localhost' (using password: YES)
+
+# docker exec -it A0502E03 mysql -u user2 --password=123456
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.22-0ubuntu18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| db_arquivovar      |
++--------------------+
+2 rows in set (0.00 sec)
+
+```
 
 
 [Voltar ao Índice](#indice)
