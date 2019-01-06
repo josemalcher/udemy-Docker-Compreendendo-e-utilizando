@@ -623,7 +623,29 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 ## <a name="parte12">12 - Introdução pratica a Containers - Revisão, novas operações e interações</a>
 
+- docker restart exemplo6
+- docker pause exemplo6
+- docker unpause exemplo6
+- docker kill exemplo6
+- docker attach exemplo6 (ctrl + p +q)
 
+copiar aqrquivos para container:
+
+- docker cp exemplo6:/tmp/arquivos1 ./ (copiar container ex6 para pasta local ./)
+
+Nomear hostname
+
+- docker run -it --name exemplo6.c --hostname exemplo6host ubuntu /bin/bash
+
+```
+# docker run -it --name exemplo6.b ubuntu /bin/bash
+root@91bd5885378f:/#
+root@91bd5885378f:/# exit
+exit
+
+root@serverubuntu:/home/josemalcher# docker run -it --name exemplo6.c --hostname exemplo6host ubuntu /bin/bash
+root@exemplo6host:/#
+```
 
 [Voltar ao Índice](#indice)
 
