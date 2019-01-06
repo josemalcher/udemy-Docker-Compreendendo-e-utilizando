@@ -654,7 +654,11 @@ root@exemplo6host:/#
 
 ## <a name="parte13">13 - Privilegiando containers</a>
 
+Privilégio total:
+- docker run -dt --name exemplo7 --privileged andyshinn/dnsmasq
 
+Específico: (placa de rede)
+- docker run -dt --name exemplo7 --cap-add=NET_ADMIN andyshinn/dnsmasq
 
 [Voltar ao Índice](#indice)
 
