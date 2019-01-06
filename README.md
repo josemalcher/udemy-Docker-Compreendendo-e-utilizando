@@ -667,7 +667,24 @@ Específico: (placa de rede)
 
 ## <a name="parte14">14 - Descartando containers</a>
 
+Script bash para ficar verificando o status docker: 
 
+```bash
+function docker.ps.loop(){
+    watch -n 3 -t "docker ps --format '{{.Names}},{{.Image}}\n{{.Status}}, PORTA: {{.Ports}}\n'"
+}
+```
+
+**Recarregar o Bash: # source ~/.bashrc**
+
+- docker run -it --rm --name exemplo8 --hostname exempli8 -p 80:80 -v /home/josemalcher/exemplo8/index.html:/usr/share/nginx/html/index.html nginx-exemplo1:v1
+
+```
+docker run -i --rm --name exemplo8 --hostname exempli8 -p 80:80 -v /home/josemalcher/exemplo8/index.html:/usr/share/nginx/html/index.html nginx-exemplo1:v1
+
+exemplo8,nginx-exemplo1:v1
+Up 45 seconds, PORTAS: 0.0.0.0:80->80/tcp
+```
 
 [Voltar ao Índice](#indice)
 
