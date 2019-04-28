@@ -1,2 +1,4 @@
 FROM nginx
-RUN sed -i 's/Welcome to nginx!/Bem vindo  ao exemplo 5 <br> Via Dockerfile' /usr/share/nginx/html/index.html
+
+RUN echo '<h2>Index 2 - deu certo!</h2>' >> /usr/share/nginx/html/index2.html
+ 
