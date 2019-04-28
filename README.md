@@ -792,7 +792,6 @@ mysql> show databases;
 
 ---
 
-
 ## <a name="parte16">16 - Trabalhando com mapeamento de portas - Parte 1</a>
 
 
