@@ -654,6 +654,9 @@ root@exemplo6host:/#
 
 ## <a name="parte13">13 - Privilegiando containers</a>
 
+Baixando img
+- docker pull andyshinn/dnsmasq
+
 Privilégio total:
 - docker run -dt --name exemplo7 --privileged andyshinn/dnsmasq
 
@@ -667,7 +670,7 @@ Específico: (placa de rede)
 
 ## <a name="parte14">14 - Descartando containers</a>
 
-Script bash para ficar verificando o status docker: 
+Script bash para ficar verificando o status docker:
 
 ```bash
 function docker.ps.loop(){
@@ -678,6 +681,8 @@ function docker.ps.loop(){
 **Recarregar o Bash: # source ~/.bashrc**
 
 - docker run -it --rm --name exemplo8 --hostname exempli8 -p 80:80 -v /home/josemalcher/exemplo8/index.html:/usr/share/nginx/html/index.html nginx-exemplo1:v1
+
+"--rm" descarta o container ao sair.
 
 ```
 docker run -i --rm --name exemplo8 --hostname exempli8 -p 80:80 -v /home/josemalcher/exemplo8/index.html:/usr/share/nginx/html/index.html nginx-exemplo1:v1
@@ -794,6 +799,62 @@ mysql> show databases;
 
 ## <a name="parte16">16 - Trabalhando com mapeamento de portas - Parte 1</a>
 
+```
+    # docker run -dt --name aulaEx1-a ubuntu /bin/bash
+
+    # docker run -dt --name aulaEx1-b -p 8080:80 ubuntu /bin/bash
+
+
+aulaEx1-b,ubuntu
+Up 59 seconds, PORTA: 0.0.0.0:8080->80/tcp
+
+aulaEx1-a,ubuntu
+Up About a minute, PORTA:
+```
+
+```
+    # docker port aulaEx1-b
+    80/tcp -> 0.0.0.0:8080
+```
+
+Mapeamento mais de uma porta
+
+```
+# docker run -dt --name aulaEx3-a -p 23:23 -p 81-85:81-85 ubuntu /bin/bash
+
+aulaEx3-a,ubuntu
+Up 15 seconds, PORTA: 0.0.0.0:23->23/tcp, 0.0.0.0:81-85->81-85/tcp
+```
+
+Determinar ip de restrição
+
+```
+# docker run -dt --name aulaEx3-b -p 192.168.0.102:24:24 ubuntu /bin/bash
+
+aulaEx3-b,ubuntu
+Up 25 seconds, PORTA: 192.168.0.102:24->24/tcp
+
+```
+
+Redirecionar para porta udp
+
+```
+# docker run -dt --name aulaEx3-c -p 54:54/udp ubuntu /bin/bash
+
+aulaEx3-c,ubuntu
+Up 21 seconds, PORTA: 0.0.0.0:54->54/udp
+```
+
+Exemplo de muitas portas
+
+```
+# docker run -dt --name aulaEx5-d -p 54-55:54-55/udp -p 192.168.0.102:100:101/tcp -p 86-89:96-99 ubuntu /bin/bash
+
+aulaEx5-d,ubuntu
+Up 19 seconds, PORTA: 0.0.0.0:54-55->54-55/udp, 0.0.0.0:86->96/tcp, 0.0.0.0:87->97/tcp, 0.0.0.0:88->98/tcp, 0.0.0.0:89->99/tcp, 192.168.0.102:100->1
+01/tcp
+
+```
 
 
 [Voltar ao Índice](#indice)
