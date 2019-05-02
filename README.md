@@ -864,6 +864,12 @@ Up 19 seconds, PORTA: 0.0.0.0:54-55->54-55/udp, 0.0.0.0:86->96/tcp, 0.0.0.0:87->
 
 ## <a name="parte17">17 - Trabalhando com mapeamento de portas - Parte 2</a>
 
+```
+# docker run -dt --name Aula17.a -P nginx
+
+Aula17.a,nginx
+Up 18 seconds, PORTA: 0.0.0.0:32768->80/tcp
+```
 
 
 [Voltar ao Índice](#indice)
