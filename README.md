@@ -879,6 +879,154 @@ Up 18 seconds, PORTA: 0.0.0.0:32768->80/tcp
 
 ## <a name="parte18">18 - Trabalhando com volumes - Parte 1</a>
 
+```
+
+# docker run -it --rm --name Aula18Ex1 
+  -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/18-Trabalhando-com-volumes-Parte-1:/tmp/Ex01:Z ubuntu /bin/bash
+
+```
+
+- ":Z" Parâmetro aidiconado: http://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/
+- ":ro" Ready only - Somente para leitura
+
+```
+# docker run -it --rm --name Aula18Ex3 
+-v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/18-Trabalhando-com-volumes-Parte-1/Exemplo1:/home/Exemplo1:Z 
+-v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/18-Trabalhando-com-volumes-Parte-1/Exemplo2:/home/Exemplo2:Z ubuntu /bin/bash
+```
+
+Prática com Mysql
+
+```
+# docker run -i --rm --name Aula18Ex4 -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/18-Trabalhando-com-volumes-Parte-1/ArquivosBD/:/var/lib/mysql:Z -e 'DB_NAME=db1' -e 'DB_USER=user1' -e 'DB_PASS=123' sameersbn/mysqlInstalling database...
+
+Starting MySQL server...
+Waiting for database server to accept connections.
+Creating debian-sys-maint user...
+Creating database "db1"...
+Granting access to database "db1" for user "user1"...
+2019-05-03T00:40:55.157354Z mysqld_safe Logging to syslog.
+2019-05-03T00:40:55.174405Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+
+Aula18Ex4,sameersbn/mysql
+Up 31 seconds, PORTA: 3306/tcp
+
+[ArquivosBD] # ls
+
+auto.cnf  db1  ib_buffer_pool  ibdata1  ib_logfile0  ib_logfile1  ibtmp1  mysql  performance_schema  sys
+
+# docker exec -it Aula18Ex4 mysql -u user1 --password=123
+
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.24-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| db1                |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+```
+
+Exemplo 2 - Adicionando outro Banco
+
+```
+# docker run -i --rm --name Aula18Ex5 -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/18-Trabalhando-com-volumes-Parte-1/ArquivosBD/:/var/lib/mysql:Z -e 'DB_NAME=db2' -e 'DB_USER=user1' -e 'DB_PASS=123' sameersbn/mysqlCreating database "db2"...
+Granting access to database "db2" for user "user1"...
+2019-05-03T00:47:03.870862Z mysqld_safe Logging to syslog.
+2019-05-03T00:47:03.895562Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+
+[ArquivosBD] # ls
+auto.cnf  db1  db2  ib_buffer_pool  ibdata1  ib_logfile0  ib_logfile1  ibtmp1  mysql  performance_schema  sys
+
+
+
+# docker exec -it Aula18Ex5 mysql -u user1 --password=123
+
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.24-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| db1                |
+| db2                |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+```
+
+Verificação...
+
+```
+# dockerun -i --rm --name Aula18Ex4 -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/18-Trabalhando-com-volumes-Parte-1/ArquivosBD/:/var/lib/mysql:Z -e 'DB_NAME=db1' -e 'DB_USER=user1' -e 'DB_PASS=123' sameersbn/mysql
+Creating database "db1"...
+Granting access to database "db1" for user "user1"...
+2019-05-03T00:52:16.713861Z mysqld_safe Logging to syslog.
+2019-05-03T00:52:16.732779Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+
+# docker exec -it Aula18Ex4 mysql -u user1 --password=123
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.24-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| db1                |
+| db2                |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+[ArquivosBD] # ls
+auto.cnf  db1  db2  ib_buffer_pool  ibdata1  ib_logfile0  ib_logfile1  ibtmp1  mysql  performance_schema  sys
+
+```
+
 
 
 [Voltar ao Índice](#indice)
