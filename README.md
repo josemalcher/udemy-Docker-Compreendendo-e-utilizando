@@ -1036,6 +1036,21 @@ auto.cnf  db1  db2  ib_buffer_pool  ibdata1  ib_logfile0  ib_logfile1  ibtmp1  m
 
 ## <a name="parte19">19 - Trabalhando com volumes - Parte 2</a>
 
+```
+# docker run -i --rm --name Aula19Ex1 -p 8080:80 -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/19-Trabalhando-com-volumes-Parte-2/index.html:/usr/share/nginx/html/index.html:Z nginx
+
+Aula19Ex1,nginx
+Up 38 seconds, PORTA: 0.0.0.0:8080->80/tcp
+
+```
+
+Espelhando os arquivos para outra container
+
+**Adicionado "--privileged=true" para poder ter permissão aos arquivos!**
+
+```
+# docker run -dt --privileged=true --name Aula19Ex2 -p 8180:80 --volumes-from=Aula19Ex1 nginx
+```
 
 
 [Voltar ao Índice](#indice)
