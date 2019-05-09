@@ -1061,6 +1061,104 @@ Espelhando os arquivos para outra container
 ## <a name="parte20">20 - Linkando containers - Parte 1</a>
 
 
+É necessário instalar o ping:
+
+```
+# docker exec -it Aula9-d /bin/bash
+# apt-get update && apt-get install -y iputils-ping
+```
+
+
+```
+# docker run -dt --name Aula9-a ubuntu /bin/bash
+
+# docker run -dt --name Aula9-b --link Aula9-a  ubuntu /bin/bash
+
+# docker run -dt --name Aula9-c  ubuntu /bin/bash
+
+# docker exec Aula9-b ping Aula9-c -c 3
+ping: Aula9-c: Temporary failure in name resolution
+
+# docker exec Aula9-b ping Aula9-a -c 3
+PING Aula9-a (172.17.0.2) 56(84) bytes of data.
+64 bytes from Aula9-a (172.17.0.2): icmp_seq=1 ttl=64 time=0.097 ms
+64 bytes from Aula9-a (172.17.0.2): icmp_seq=2 ttl=64 time=0.080 ms
+64 bytes from Aula9-a (172.17.0.2): icmp_seq=3 ttl=64 time=0.076 ms
+
+--- Aula9-a ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2030ms
+rtt min/avg/max/mdev = 0.076/0.084/0.097/0.011 ms
+
+```
+
+Exemplo 2
+
+```
+# docker run -dt --name Aula9-d --link Aula9-a:l1 --link Aula9-b:l2 --link Aula9-c ubuntu /bin/bash
+
+# docker exec Aula9-d ping l1 -c 3
+PING l1 (172.17.0.2) 56(84) bytes of data.
+64 bytes from l1 (172.17.0.2): icmp_seq=1 ttl=64 time=0.083 ms
+64 bytes from l1 (172.17.0.2): icmp_seq=2 ttl=64 time=0.139 ms
+64 bytes from l1 (172.17.0.2): icmp_seq=3 ttl=64 time=0.109 ms
+
+--- l1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2076ms
+rtt min/avg/max/mdev = 0.083/0.110/0.139/0.024 ms
+
+# docker exec Aula9-d ping l1 -c 3
+PING l1 (172.17.0.2) 56(84) bytes of data.
+64 bytes from l1 (172.17.0.2): icmp_seq=1 ttl=64 time=0.083 ms
+64 bytes from l1 (172.17.0.2): icmp_seq=2 ttl=64 time=0.139 ms
+64 bytes from l1 (172.17.0.2): icmp_seq=3 ttl=64 time=0.109 ms
+
+--- l1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2076ms
+rtt min/avg/max/mdev = 0.083/0.110/0.139/0.024 ms
+
+# docker exec Aula9-d ping Aula9-a -c 3
+PING l1 (172.17.0.2) 56(84) bytes of data.
+64 bytes from l1 (172.17.0.2): icmp_seq=1 ttl=64 time=0.056 ms
+64 bytes from l1 (172.17.0.2): icmp_seq=2 ttl=64 time=0.319 ms
+64 bytes from l1 (172.17.0.2): icmp_seq=3 ttl=64 time=0.135 ms
+
+--- l1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2052ms
+rtt min/avg/max/mdev = 0.056/0.170/0.319/0.110 ms
+
+# docker exec Aula9-d ping l2 -c 3
+PING l2 (172.17.0.3) 56(84) bytes of data.
+64 bytes from l2 (172.17.0.3): icmp_seq=1 ttl=64 time=0.078 ms
+64 bytes from l2 (172.17.0.3): icmp_seq=2 ttl=64 time=0.115 ms
+64 bytes from l2 (172.17.0.3): icmp_seq=3 ttl=64 time=0.121 ms
+
+--- l2 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2056ms
+rtt min/avg/max/mdev = 0.078/0.104/0.121/0.022 ms
+
+# docker exec Aula9-d ping l3 -c 3
+ping: l3: Name or service not known
+
+# docker exec Aula9-d ping Aula9-d -c 3
+ping: Aula9-d: Name or service not known
+
+# docker exec Aula9-d ping Aula9-c -c 3
+PING Aula9-c (172.17.0.4) 56(84) bytes of data.
+64 bytes from Aula9-c (172.17.0.4): icmp_seq=1 ttl=64 time=0.105 ms
+64 bytes from Aula9-c (172.17.0.4): icmp_seq=2 ttl=64 time=0.100 ms
+64 bytes from Aula9-c (172.17.0.4): icmp_seq=3 ttl=64 time=0.129 ms
+
+--- Aula9-c ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2063ms
+rtt min/avg/max/mdev = 0.100/0.111/0.129/0.015 ms
+
+
+```
+
+
+
+```
+```
 
 [Voltar ao Índice](#indice)
 
