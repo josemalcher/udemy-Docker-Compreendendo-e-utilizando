@@ -1152,12 +1152,6 @@ PING Aula9-c (172.17.0.4) 56(84) bytes of data.
 3 packets transmitted, 3 received, 0% packet loss, time 2063ms
 rtt min/avg/max/mdev = 0.100/0.111/0.129/0.015 ms
 
-
-```
-
-
-
-```
 ```
 
 [Voltar ao Índice](#indice)
@@ -1167,7 +1161,47 @@ rtt min/avg/max/mdev = 0.100/0.111/0.129/0.015 ms
 
 ## <a name="parte21">21 - Linkando containers - Parte 2</a>
 
+```
+# docker run -dt --name Aula21-ex2-db 
+    -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/21-Linkando-containers-Parte-2/:/var/lib/mysql:Z 
+    -e 'DB_NAME=redmine_base'
+    -e 'DB_USER=redmine_usuario' 
+    -e 'DB_PASS=redmine_senha' 
+    sameersbn/mysql:latest
+    
+c31b360dec1ab312be29bb00a339c72417ca6fb12cad33231945561b413c4e62
 
+
+#  docker ps
+CONTAINER ID   IMAGE   COMMAND     CREATED    STATUS   PORTS           NAMES
+c31b360dec1a   sameersbn/mysql:latest   "/sbin/entrypoint...."   3 minutes ago       Up 3 minutes        3306/tcp       Aula21-ex2-db
+
+# docker run -i --rm --name Aula21-ex2-app -p 8080:80 
+    -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/21-Linkando-containers-Parte-2-app/:/home/redmine/data:Z 
+    -e 'DB_TYPE=mysql' 
+    -e 'DB_HOST=redminedb' 
+    -e 'DB_NAME=redmine_base' 
+    -e 'DB_USER=redmine_usuario' 
+    -e 'DB_PASS=redmine_senha' 
+    --link Aula21-ex2-db:redminedb 
+    sameersbn/redmine:3.1.1-3
+
+Waiting for database server to accept connections
+2019-05-10 22:13:41,465 CRIT Supervisor running as root (no user in config file)
+2019-05-10 22:13:41,465 WARN Included extra file "/etc/supervisor/conf.d/cron.conf" during parsing
+2019-05-10 22:13:41,465 WARN Included extra file "/etc/supervisor/conf.d/unicorn.conf" during parsing
+2019-05-10 22:13:41,466 WARN Included extra file "/etc/supervisor/conf.d/nginx.conf" during parsing
+2019-05-10 22:13:41,513 INFO RPC interface 'supervisor' initialized
+2019-05-10 22:13:41,513 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2019-05-10 22:13:41,514 INFO supervisord started with pid 1
+2019-05-10 22:13:42,516 INFO spawned: 'unicorn' with pid 91
+2019-05-10 22:13:42,517 INFO spawned: 'cron' with pid 92
+2019-05-10 22:13:42,520 INFO spawned: 'nginx' with pid 93
+2019-05-10 22:13:44,240 INFO success: unicorn entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2019-05-10 22:13:44,240 INFO success: cron entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2019-05-10 22:13:44,240 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+
+```
 
 [Voltar ao Índice](#indice)
 
