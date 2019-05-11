@@ -1360,9 +1360,6 @@ docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 yea
 # docker exec Aula512-v1 ls /usr/src
 arquivo-bkp-teste_1
 
-
-
-
 ```
 
 
@@ -1374,6 +1371,36 @@ arquivo-bkp-teste_1
 
 ## <a name="parte24">24 - Introdução pratica a imagens</a>
 
+```
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+aula512                            v1                  01d84de66f72        18 minutes ago      81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+
+# docker pull ubuntu:10.04
+
+# docker pull centos
+
+# docker pull nginx
+
+
+# docker search wordpress
+
+
+```
+
+**Base de Imagens**
+
+- https://hub.docker.com
 
 
 [Voltar ao Índice](#indice)
