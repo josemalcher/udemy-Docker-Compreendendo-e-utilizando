@@ -1210,6 +1210,107 @@ Waiting for database server to accept connections
 
 ## <a name="parte22">22 - Inspecionando containers</a>
 
+```
+# docker run -dt --name Aula511-ex1 
+    --hostname Aula511-ex1 
+    -p 8080:80 -p 81:91 
+    -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/511-inspecionando-containers-1/:/tmp:Z 
+    ubuntu /bin/bash
+
+```
+
+```
+# docker run -dt --name Aula511-ex1 --hostname Aula511-ex1 -p 8080:80 -p 81:91 -v /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/511-inspecionando-containers-1/:/tmp:Z ubuntu /bin/bash
+
+# docker inspect Aula511-ex1 
+[
+    {
+        "Id": "a5177bed824b47760bba705da3ff1a570518e82ea7fd6a1e66",
+        "Created": "2019-05-11T13:03:46.3282937Z",
+        "Path": "/bin/bash",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 7451,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2019-05-11T13:03:47.90327774Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:d131e0fa2585a7efbfb187f70d648aa50e251d9d3b7031edf",
+        "ResolvConfPath": "/var/lib/docker/containers/a5177bed824b47760bba705da3ff1a57082ea7fd6a1e66a80975cc1cfa09/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/a5177bed824b47760bba705da3ff1a58e82ea7fd6a1e66a80975cc1cfa09/hostname",
+        "HostsPath": "/var/lib/docker/containers/a5177bed824b47760bba705da3ff1a18e82ea7fd6a1e66a80975cc1cfa09/hosts",
+        "LogPath": "",
+        "Name": "/Aula511-ex1",
+
+#(....muitas outras infos)
+
+# docker inspect --format '{{.Id}}' Aula511-ex1 
+a5177bed824b47760bba705da3ff1a570518e82ea7fd6a1e66a80975cc1cfa09
+
+# docker inspect --format '{{.NetworkSettings}}' Aula511-ex1 
+{{ 65b499414d26f9f70ea8dafa714754da8a994e6219cda58ed31d1278fab48aa4 false  0 map[80/tcp:[{0.0.0.0 8080}] 91/tcp:[{0.0.0.0 81}]] /var/run/docker/netns/65b499414d26 [] []} {e2f79b1d0451f9159c51c83898c20cd5f6147895c7d6fa75d2ca7783df610e92 172.17.0.1  0 172.17.0.2 16  02:42:ac:11:00:02} map[bridge:0xc00012a000]}
+
+# docker inspect --format '{{.NetworkSettings.IPAddress}}' Aula511-ex1 
+172.17.0.2
+
+
+```
+
+
+```
+
+# docker inspect --format 'Inf: {{.Name}} | {{.Config.Hostname}} | {{.NetworkSettings.IPAddress}}' Aula511-ex1
+Inf: /Aula511-ex1 | Aula511-ex1 | 172.17.0.2
+
+
+```
+
+**Diff**
+
+```
+# docker exec Aula511-ex1 touch /usr/src/arquivo1
+# docker exec Aula511-ex1 touch /usr/src/arquivo2
+# docker diff Aula511-ex1 
+C /run
+D /run/secrets
+C /usr/src
+A /usr/src/arquivo1
+A /usr/src/arquivo2
+
+# docker exec -it Aula511-ex1 bash
+root@Aula511-ex1:/# touch /tmp/arquiv3
+root@Aula511-ex1:/# echo "alter file">>/usr/src/arquivo2
+root@Aula511-ex1:/# exit
+exit
+
+# docker diff Aula511-ex1 
+C /root
+A /root/.bash_history
+C /run
+D /run/secrets
+C /usr/src
+A /usr/src/arquivo1
+A /usr/src/arquivo2
+
+```
+
+**Logs**
+
+```
+# docker run -dt --name Aula511-ex2 =p 8080:80 -p 443:443 -p 3306:3306 dell/wordpress
+
+# docker logs Aula511-ex2
+
+
+```
+
 
 
 [Voltar ao Índice](#indice)
