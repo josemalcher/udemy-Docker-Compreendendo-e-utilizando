@@ -1410,7 +1410,44 @@ docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 yea
 
 ## <a name="parte25">25 - Versionando imagens - Parte 1</a>
 
+- https://hub.docker.com
 
+
+```
+# docker info
+Containers: 3
+ Running: 0
+ Paused: 0
+ Stopped: 3
+Images: 10
+Server Version: 1.13.1
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: journald
+Cgroup Driver: systemd
+Plugins: 
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Authorization: rhel-push-plugin
+Swarm: inactive
+
+(...)
+
+# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: josemalcher
+Password: 
+
+#docker logout
+
+# docker login -u josemalcher -e contato@josemalche.net
+Flag --email has been deprecated, will be removed in 1.14.
+Password: 
+
+
+```
 
 [Voltar ao Índice](#indice)
 
