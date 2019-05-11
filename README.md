@@ -1320,6 +1320,51 @@ A /usr/src/arquivo2
 
 ## <a name="parte23">23 - Exportando e Importando</a>
 
+```
+# docker run -dt --name Aula512 ubuntu /bin/bash
+6f9257703d8f4a30ec6a882a2c60255fa1f6313c6288b20519239341f1c37038
+
+# docker exec Aula512 touch /usr/src/arquivo-bkp-teste_1
+
+# docker diff Aula512 
+C /run
+D /run/secrets
+C /usr/src
+A /usr/src/arquivo-bkp-teste_1
+
+# docker export -o /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/512-exportando-importando/container-Aula512.tar Aula512
+
+# ls 512-exportando-importando/
+container-Aula512.tar
+
+# cat 512-exportando-importando/container-Aula512.tar | docker import - aula512:v1
+sha256:01d84de66f72fcd34468564fe25b6a28bd779b324359fbd45658151a3d308812
+
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+aula512                            v1                  01d84de66f72        6 seconds ago       81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+
+# docker run -dt --name Aula512-v1 aula512:v1 /bin/bash
+73638ab1d24bfd6e863153011d0fe03d70cdedeeb4344469584cdc310dcdb85c
+
+# docker exec Aula512-v1 ls /usr/src
+arquivo-bkp-teste_1
+
+
+
+
+```
+
 
 
 [Voltar ao Índice](#indice)
