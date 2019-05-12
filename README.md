@@ -1545,6 +1545,74 @@ docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 yea
 
 ## <a name="parte27">27 - Exportando e Importando</a>
 
+```
+
+# docker save -o 64-exportando-importando/aula64-ex1-latest.tar josemalcher/aula63:latest 
+
+$ ls -lha
+total 100M
+drwxrwxr-x.  2 josemalcher josemalcher 4,0K mai 11 21:38 .
+drwxrwxr-x. 14 josemalcher josemalcher 4,0K mai 11 21:35 ..
+-rw-------.  1 root        root        100M mai 11 21:38 aula64-ex1-latest.tar
+
+
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+josemalcher/aula63                 latest              367ead2fa1a1        16 minutes ago      102 MB
+josemalcher/aula63                 v2                  367ead2fa1a1        16 minutes ago      102 MB
+aula63                             v1                  6a96d5d9fd50        19 minutes ago      102 MB
+aula512                            v1                  01d84de66f72        3 hours ago         81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+# docker rmi -f josemalcher/aula63:latest josemalcher/aula63:v2 aula63:v1
+Untagged: josemalcher/aula63:latest
+Untagged: josemalcher/aula63:v2
+Deleted: sha256:367ead2fa1a1ab3e593d3b1883189a591f0a72c345ae177e678ff80444e452f7
+Untagged: aula63:v1
+Deleted: sha256:6a96d5d9fd50382cf103ab9b49011e953b3f37ff3c7f2782e5da3d97e11096ca
+Deleted: sha256:3d4be9bc1e3787c089c5b1c29fa785d9424a3f29d0e67a642c75763fb278b0de
+
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+aula512                            v1                  01d84de66f72        3 hours ago         81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+# docker load < /home/josemalcher/Documentos/workspace-Docker/udemy-Docker-Compreendendo-e-utilizando/64-exportando-importando/aula64-ex1-latest.tar
+6d4cdb9eb527: Loading layer [==================================================>] 4.096 kB/4.096 kB
+Loaded image: josemalcher/aula63:latest
+
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+josemalcher/aula63                 latest              367ead2fa1a1        20 minutes ago      102 MB
+aula512                            v1                  01d84de66f72        3 hours ago         81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+
+```
 
 
 [Voltar ao Índice](#indice)
