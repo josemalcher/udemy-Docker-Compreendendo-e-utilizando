@@ -1456,6 +1456,86 @@ Password:
 
 ## <a name="parte26">26 - Versionando imagens - Parte 2</a>
 
+```
+# docker run -dt --name aula63 ubuntu /bin/bash
+4104e4d78fc6952b7f857b8d5e9ae55b90dc315e10e399371e984aa7191bf550
+
+# docker exec aula63 touch /usr/src/imagem-alterada
+
+# docker diff aula63 
+C /run
+D /run/secrets
+C /usr/src
+A /usr/src/imagem-alterada
+
+# docker commit -m "Versionando imagem - exemplo 1" aula63 aula63:v1
+
+
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+aula63                             v1                  6a96d5d9fd50        15 seconds ago      102 MB
+aula512                            v1                  01d84de66f72        3 hours ago         81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+
+# docker push aula63:v1
+Error response from daemon: You cannot push a "root" repository. Please rename your repository to docker.io/<user>/<repo> (ex: docker.io/<user>/aula63)
+
+# docker commit -m "Versionando imagem - exemplo 2" aula63 josemalcher/aula63:v2
+
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+josemalcher/aula63                 v2                  367ead2fa1a1        7 seconds ago       102 MB
+aula63                             v1                  6a96d5d9fd50        3 minutes ago       102 MB
+aula512                            v1                  01d84de66f72        3 hours ago         81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+
+# docker push josemalcher/aula63
+The push refers to a repository [docker.io/josemalcher/aula63]
+
+
+# docker pull josemalcher/aula63:v2
+
+
+# docker tag josemalcher/aula63:v2 josemalcher/aula63:latest
+
+# docker images
+REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+josemalcher/aula63                 latest              367ead2fa1a1        4 minutes ago       102 MB
+josemalcher/aula63                 v2                  367ead2fa1a1        4 minutes ago       102 MB
+aula63                             v1                  6a96d5d9fd50        7 minutes ago       102 MB
+aula512                            v1                  01d84de66f72        3 hours ago         81.5 MB
+docker.io/ubuntu                   14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                   latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                    latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7   latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine        latest              1239aa7aa1ea        4 weeks ago         816 MB
+quay.io/sameersbn/mysql            latest              40df973b8e91        3 months ago        289 MB
+docker.io/hello-world              latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq        latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine        3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+# docker push josemalcher/aula63
+
+```
+
 
 
 [Voltar ao Índice](#indice)
