@@ -1690,7 +1690,43 @@ CMD ["/bin/bash"]
 
 ## <a name="parte29">29 - Construindo aplicação pelo arquivo Dockerfile</a>
 
+```
+# ls
+arquivos  Dockerfile
 
+# docker build -t josemalcher/ubuntu-dkinf-base:latest .
+Sending build context to Docker daemon 6.656 kB
+Step 1/27 : FROM ubuntu
+ ---> d131e0fa2585
+Step 2/27 : MAINTAINER José Malcher Jr. <contato@josemalcher.net>
+ ---> Running in c7b15e0eec05
+ ---> f2ac4cc6d1bb
+Removing intermediate container c7b15e0eec05
+Step 3/27 : LABEL "net.josemalcher.vendor" "Udemy Course"
+ ---> Running in c3c449458d29
+ ---> d1083398c309
+Removing intermediate container c3c449458d29
+Step 4/27 : LABEL version "1.0"
+ ---> Running in 6518b4356ff7
+ ---> a66a60651dd0
+Removing intermediate container 6518b4356ff7
+(...)
+
+
+# docker run -dt --name Aula71-doking-ex1 josemalcher/ubuntu-dokinf-base
+b3cd23b15fa5da3b4c696f971693e54bdee882bf32e7f2494a61210aaf75fd5b
+
+# docker ps
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS              PORTS               NAMES
+b3cd23b15fa5        josemalcher/ubuntu-dokinf-base   "/bin/bash"         4 seconds ago       Up 3 seconds        80-83/tcp           Aula71-doking-ex1
+
+
+
+Aula71-doking-ex1,josemalcher/ubuntu-dokinf-base
+Up 2 minutes, PORTA: 80-83/tcp
+
+
+```
 
 [Voltar ao Índice](#indice)
 
@@ -1708,25 +1744,23 @@ CMD ["/bin/bash"]
 
 ## <a name="parte31">31 - Introdução ao modulo</a>
 
-
+NULL
 
 [Voltar ao Índice](#indice)
 
 ---
-
 
 ## <a name="parte32">32 - Introdução ao modulo</a>
 
-
+NULL
 
 [Voltar ao Índice](#indice)
 
 ---
 
-
 ## <a name="parte33">33 - Parabéns</a>
 
-
+FINISH
 
 [Voltar ao Índice](#indice)
 
