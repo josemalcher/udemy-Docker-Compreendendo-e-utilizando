@@ -1735,7 +1735,110 @@ Up 2 minutes, PORTA: 80-83/tcp
 
 ## <a name="parte30">30 - Construindo aplicação SSH com Dockerfile</a>
 
+```
+# docker build -t josemalcher/ubuntu-dokinf-base-ssh .
+Sending build context to Docker daemon  2.56 kB
+Step 1/18 : FROM josemalcher/ubuntu-dokinf-base
+ ---> a68529e5ea0f
+Step 2/18 : MAINTAINER José Malcher Jr. <contato@josemalcher.net>
+ ---> Running in ce96a5dcf923
+ ---> 350239890c33
+Removing intermediate container ce96a5dcf923
+Step 3/18 : LABEL "com.example.vendor" "Udemy Course"
+ ---> Running in 381d08bad920
+ ---> 4a51039beefc
+Removing intermediate container 381d08bad920
+Step 4/18 : LABEL version "1.5"
+ ---> Running in 4a9725cb61e1
+ ---> 816d6b1c7704
 
+
+# docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+josemalcher/ubuntu-dokinf-base-ssh   latest              96eba117c1e1        3 minutes ago       522 MB
+josemalcher/ubuntu-dokinf-base       latest              a68529e5ea0f        40 minutes ago      443 MB
+josemalcher/aula63                   latest              367ead2fa1a1        41 hours ago        102 MB
+aula512                              v1                  01d84de66f72        45 hours ago        81.5 MB
+docker.io/ubuntu                     14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                     latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                      latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7     latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine          latest              1239aa7aa1ea        5 weeks ago         816 MB
+quay.io/sameersbn/mysql              latest              40df973b8e91        4 months ago        289 MB
+docker.io/hello-world                latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq          latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine          3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+
+
+# docker run -dt --name Aula730-ssh josemalcher/ubuntu-dokinf-base-ssh
+11cdc59882815278687cf787e3f9d44ba09ae53f3a4e7f41f173a58b59faca1a
+
+
+Aula730-ssh,josemalcher/ubuntu-dokinf-base-ssh
+Up 7 minutes, PORTA: 22/tcp, 80-83/tcp
+
+
+# docker ps
+CONTAINER ID        IMAGE                                COMMAND               CREATED             STATUS              PORTS               NAMES
+11cdc5988281        josemalcher/ubuntu-dokinf-base-ssh   "/usr/sbin/sshd -D"   4 seconds ago       Up 4 seconds        22/tcp, 80-83/tcp   Aula730-ssh
+b3cd23b15fa5        josemalcher/ubuntu-dokinf-base       "/bin/bash"           29 minutes ago      Up 29 minutes       80-83/tcp           Aula71-doking-ex1
+
+
+
+# IP_EX02=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' Aula730-ssh)
+
+# ssh $IP_EX02
+The authenticity of host '172.17.0.3 (172.17.0.3)' can't be established.
+
+```
+
+
+Outro Exemplo
+
+```
+ # docker build -t josemalcher/ubuntu-dokinf-base-ssh:1.2 .
+Sending build context to Docker daemon 3.072 kB
+Step 1/5 : FROM josemalcher/ubuntu-dokinf-base-ssh
+ ---> 96eba117c1e1
+Step 2/5 : MAINTAINER José Malcher Jr.<contato@josemalcher.net>
+ ---> Running in 886b48b92bea
+ ---> 607284166a63
+Removing intermediate container 886b48b92bea
+Step 3/5 : ADD issue.exemplo.net /etc/issue.exemplo.net
+(...)
+
+# docker images
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+josemalcher/ubuntu-dokinf-base-ssh   1.2                 12e7ebd9d75e        47 seconds ago      522 MB
+josemalcher/ubuntu-dokinf-base-ssh   latest              96eba117c1e1        21 minutes ago      522 MB
+josemalcher/ubuntu-dokinf-base       latest              a68529e5ea0f        58 minutes ago      443 MB
+josemalcher/aula63                   latest              367ead2fa1a1        41 hours ago        102 MB
+aula512                              v1                  01d84de66f72        45 hours ago        81.5 MB
+docker.io/ubuntu                     14.04               65613486b3ef        2 weeks ago         188 MB
+docker.io/ubuntu                     latest              d131e0fa2585        2 weeks ago         102 MB
+docker.io/nginx                      latest              27a188018e18        3 weeks ago         109 MB
+registry.access.redhat.com/rhel7     latest              5044f6040ea5        3 weeks ago         203 MB
+docker.io/sameersbn/redmine          latest              1239aa7aa1ea        5 weeks ago         816 MB
+quay.io/sameersbn/mysql              latest              40df973b8e91        4 months ago        289 MB
+docker.io/hello-world                latest              fce289e99eb9        4 months ago        1.84 kB
+docker.io/andyshinn/dnsmasq          latest              831c17422076        13 months ago       4.88 MB
+docker.io/sameersbn/redmine          3.1.1-3             9655f66d3116        3 years ago         612 MB
+
+
+
+# docker run -dt --name Aula730-ssh-1-2 josemalcher/ubuntu-dokinf-base-ssh:1.2
+
+Aula730-ssh-1-2,josemalcher/ubuntu-dokinf-base-ssh:1.2
+Up 3 seconds, PORTA: 22/tcp, 80-83/tcp
+
+# docker run -dt --name Aula730-ssh-1-2 josemalcher/ubuntu-dokinf-base-ssh:1.2
+
+# IP_EX03=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' Aula730-ssh-1-2)
+# ssh $IP_EX03
+
+
+```
 
 [Voltar ao Índice](#indice)
 
